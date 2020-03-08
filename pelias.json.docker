@@ -21,23 +21,16 @@
   "logger": {
     "level": ["error", "warning"]
   },
-  "acceptance-tests": {
-    "endpoints": {
-      "dev": "http://dev-api.digitransit.fi/geocoding/v1/"
-    }
-  },
   "api" : {
     "indexName": "pelias",
     "version": "1.0",
     "targets": {
-      "canonical_sources": ["whosonfirst", "openstreetmap", "openaddresses", "geonames", "nlsfi", "gtfs"],
+      "canonical_sources": ["whosonfirst", "openstreetmap", "geonames", "gtfs"],
       "layers_by_source": {
-        "nlsfi": [ "venue", "stop", "station" ],
         "gtfs": [ "stop", "station" ]
       },
       "source_aliases": {
         "gtfs": ["gtfs"],
-        "nlsfi": ["nlsfi"]
       }
     },
     "textAnalyzer": "libpostal",
@@ -65,11 +58,9 @@
       }
     },
     "languages": [
-      "fi",
+      "ro",
       "default",
-      "sv",
       "en",
-      "se",
       "local",
       "alternative",
       "international",
@@ -81,16 +72,16 @@
       "sorting"
     ],
     "languageMap": {
-      "default":"fi",
-      "local":"fi",
-      "alternative":"fi",
-      "international":"fi",
-      "national":"fi",
-      "official":"fi",
-      "old":"fi",
-      "regional":"fi",
-      "short":"fi",
-      "sorting":"fi"
+      "default":"ro",
+      "local":"ro",
+      "alternative":"ro",
+      "international":"ro",
+      "national":"ro",
+      "official":"ro",
+      "old":"ro",
+      "regional":"ro",
+      "short":"ro",
+      "sorting":"ro"
     },
     "localization" : {
       "confidenceAdminWeights": {
@@ -106,18 +97,18 @@
         "street": {"parent":"address_parts", "field":"street", "numeric": false, "weight": 2},
         "postalcode": {"parent":"address_parts", "field":"zip", "numeric": false, "weight": 1}
       },
-      "filteredRegions": ["suomi", "finland"],
+      "filteredRegions": ["romania"],
       "cleanRegions": true,
       "postalCodeValidator": "^[0-9]{5}$",
       "streetNumberValidator": "^[0-9].*$",
       "translations": "/opt/pelias/api/translations.json",
       "equalCharMap": {
-        "é":"e",
+        "ï¿½":"e",
         "'":"",
         "-":" "
       },
       "labelSchemas": {
-        "FIN": {
+        "ROM": {
           "address": { "fields": [["street", "housenumber"], "neighbourhood"], "matchType": "first", "targets": ["venue", "stop", "station"] },
           "local": { "fields": ["localadmin", "locality"], "matchType": "best" }
         }
