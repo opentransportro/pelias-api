@@ -30,7 +30,7 @@
         "gtfs": [ "stop", "station" ]
       },
       "source_aliases": {
-        "gtfs": ["gtfs"],
+        "gtfs": ["gtfs"]
       }
     },
     "textAnalyzer": "libpostal",
@@ -93,7 +93,7 @@
         "street": 0.2
       },
       "confidenceAddressParts": {
-	"number": {"parent":"address_parts", "field":"number", "numeric": true, "weight": 0.5},
+	      "number": {"parent":"address_parts", "field":"number", "numeric": true, "weight": 0.5},
         "street": {"parent":"address_parts", "field":"street", "numeric": false, "weight": 2},
         "postalcode": {"parent":"address_parts", "field":"zip", "numeric": false, "weight": 1}
       },
