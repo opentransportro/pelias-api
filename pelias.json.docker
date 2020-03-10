@@ -108,7 +108,7 @@
         "-":" "
       },
       "labelSchemas": {
-        "ROM": {
+        "ROU": {
           "address": { "fields": [["street", "housenumber"], "neighbourhood"], "matchType": "first", "targets": ["venue", "stop", "station"] },
           "local": { "fields": ["localadmin", "locality"], "matchType": "best" }
         }
