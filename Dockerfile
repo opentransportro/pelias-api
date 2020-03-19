@@ -10,7 +10,7 @@ RUN apt-get install -y --no-install-recommends git curl make libsnappy-dev autoc
 
 RUN mkdir -p /mnt/data
 
-RUN git clone --single-branch https://github.com/vesameskanen/libpostal \
+RUN git clone --single-branch https://github.com/opentransportro/libpostal \
   && cd libpostal \
   && ./bootstrap.sh \
   && ./configure --datadir=/mnt/data \
