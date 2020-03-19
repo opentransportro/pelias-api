@@ -101,12 +101,6 @@
       "cleanRegions": true,
       "postalCodeValidator": "^[0-9]{5}$",
       "streetNumberValidator": "^[0-9].*$",
-      "translations": "/opt/pelias/api/translations.json",
-      "equalCharMap": {
-        "�":"e",
-        "'":"",
-        "-":" "
-      },
       "labelSchemas": {
         "ROU": {
           "address": { "fields": [["street", "housenumber"], "neighbourhood"], "matchType": "first", "targets": ["venue", "stop", "station"] },
