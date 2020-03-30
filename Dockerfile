@@ -1,9 +1,7 @@
-FROM opentransport/libpostal:latest
+FROM opentransport/libpostal
 
 ENV PORT=8080
 EXPOSE ${PORT}
-
-RUN echo 'APT::Acquire::Retries "20";' >> /etc/apt/apt.conf
 
 # Where the app is built and run inside the docker fs
 ENV WORK=/opt/pelias/api
