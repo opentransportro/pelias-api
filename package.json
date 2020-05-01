@@ -18,7 +18,9 @@
     "unit": "./bin/units",
     "validate": "npm ls",
     "config": "node -e \"console.log(JSON.stringify(require( 'pelias-config' ).generate(require('./schema')), null, 2))\"",
-    "prune": "npm prune"
+    "prune": "npm prune",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -40,7 +42,6 @@
     "addressit": "1.6.0",
     "async": "^3.0.1",
     "check-types": "^7.0.0",
-    "async": "^3.0.1",
     "elasticsearch": "^16.0.0",
     "express": "^4.8.8",
     "geojson": "^0.5.0",
@@ -69,7 +70,8 @@
     "pelias-text-analyzer": "github:opentransportro/pelias-text-analyzer",
     "through2": "^3.0.0",
     "fuzzy.js": "^0.1.0",
-    "point-in-polygon": "1.0.1"
+    "point-in-polygon": "1.0.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "ciao": "^2.0.0",
@@ -88,5 +90,6 @@
   "release": {
     "branch": "master",
     "success": []
-  }
+  },
+  "snyk": true
 }
