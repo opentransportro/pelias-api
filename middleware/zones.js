@@ -4,7 +4,7 @@ function setup(prefix) {
 
   const regions = {
     HSL: require('./config/hsl_zone_areas_20190508.json'),
-    tampere: require('./config/tre_zone_areas_20200401.json'),
+    tampere: require('./config/tre_zone_areas_20202212.json'),
     LINKKI: require('./config/linkki.json'),
     Lahti: require('./config/lahti_zone_areas_20201120.json'),
     Kuopio: require('./config/kuopio_zone_areas_20201120.json'),
