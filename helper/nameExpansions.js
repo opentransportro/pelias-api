@@ -141,7 +141,7 @@ function expandByLocation(docs, lang) {
     }
   });
   var latDiff = north.center_point.lat - south.center_point.lat;
-  var lonDiff = east.center_point.lat - west.center_point.lat;
+  var lonDiff = east.center_point.lon - west.center_point.lon;
 
   // simple logic will not work near places where the wgs84 angle space wraps
   // these are sparsely populated areas so just skip this extension there
@@ -161,7 +161,7 @@ function expandByLocation(docs, lang) {
   // both in relative and absolute scale
   var overThreshold = function(p1, p2, limit, field) {
     if(Math.abs(p1[field] - p2[field]) > limit) { // exceeds relative threshold
-      return (geoDist(p1, p2)>50); // exceeds absolute threshold in meters
+      return (geoDist(p1, p2)>100); // exceeds absolute threshold in meters
     }
     return false;
   };
@@ -172,11 +172,28 @@ function expandByLocation(docs, lang) {
     names[i] = names[i] + ', ' + label;
   };
 
+  let dx, dy;
   if(overThreshold(north.center_point, _north.center_point, latDiff * 0.1, 'lat')) {
     if(north===west) {
-      expandName(north, 'northwest');
+      dy = Math.abs(north.center_point.lat - _north.center_point.lat);
+      dx = Math.abs(north.center_point.lon - _west.center_point.lon);
+      if (dy > 2*dx) {
+	expandName(north, 'north');
+      } else if (dx > 2*dy) {
+	expandName(north, 'west');
+      } else {
+	expandName(north, 'northwest');
+      }
     } else if(north===east) {
-      expandName(north, 'northeast');
+      dy = Math.abs(north.center_point.lat - _north.center_point.lat);
+      dx = Math.abs(north.center_point.lon - _east.center_point.lon);
+      if (dy > 2*dx) {
+	expandName(north, 'north');
+      } else if (dx > 2*dy) {
+	expandName(north, 'east');
+      } else {
+	expandName(north, 'northeast');
+      }
     }
     else {
       expandName(north, 'north');
@@ -184,9 +201,25 @@ function expandByLocation(docs, lang) {
   }
   if(overThreshold(south.center_point, _south.center_point, latDiff * 0.1, 'lat')) {
     if(south===west) {
-      expandName(south, 'southwest');
+      dy = Math.abs(south.center_point.lat - _south.center_point.lat);
+      dx = Math.abs(south.center_point.lon - _west.center_point.lon);
+      if (dy > 2*dx) {
+	expandName(south, 'south');
+      } else if (dx > 2*dy) {
+	expandName(south, 'west');
+      } else {
+	expandName(south, 'southwest');
+      }
     } else if(south===east) {
-      expandName(south, 'southeast');
+      dy = Math.abs(south.center_point.lat - _south.center_point.lat);
+      dx = Math.abs(south.center_point.lon - _east.center_point.lon);
+      if (dy > 2*dx) {
+	expandName(south, 'south');
+      } else if (dx > 2*dy) {
+	expandName(south, 'east');
+      } else {
+	expandName(south, 'southeast');
+      }
     }
     else {
       expandName(south, 'south');
