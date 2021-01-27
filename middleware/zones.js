@@ -8,6 +8,7 @@ function setup(prefix) {
     LINKKI: require('./config/linkki.json'),
     Lahti: require('./config/lahti_zone_areas_20201120.json'),
     Kuopio: require('./config/kuopio_zone_areas_20201120.json'),
+    Hameenlinna: require('./config/hml_zone_areas_20210127.json'),
   };
 
   // precompute bounding boxes to optimize test speed
