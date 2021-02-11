@@ -3,6 +3,10 @@
 >[Mapzen](https://www.mapzen.com/). Our official user documentation is
 >[here](https://github.com/pelias/documentation).
 
+### Continuous Integration
+
+[![Build](https://github.com/hsldevcom/pelias-api/workflows/Process%20master%20push%20or%20pr/badge.svg?branch=master)](https://github.com/HSLdevcom/pelias-api/actions)
+
 # Pelias API Server
 
 This is the API server for the Pelias project. It's the service that runs to process user HTTP requests and return results as GeoJSON by querying Elasticsearch and the other Pelias services.
@@ -169,13 +173,6 @@ $ curl localhost:9200/pelias/_count?pretty
   ...
 }
 ```
-
-### Continuous Integration
-
-Travis tests every release against all supported Node.js versions.
-
-[![Build Status](https://travis-ci.org/pelias/api.png?branch=master)](https://travis-ci.org/pelias/api)
-
 
 ### Versioning
 
