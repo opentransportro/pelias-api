@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-DOCKER_IMAGE="hsldevcom/pelias-api"
+API="pelias-api"
+DOCKER_IMAGE="hsldevcom/$API"
 DOCKER_TAG="latest"
 
 COMMIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
@@ -13,11 +14,11 @@ DOCKER_IMAGE_TAG_LONG=$DOCKER_IMAGE:$DOCKER_TAG_LONG
 # Build image
 echo Building pelias-api
 docker build --tag="$DOCKER_IMAGE_TAG_LONG" .
-docker run --name $DOCKER_IMAGE -p 3100:8080 --rm $DOCKER_IMAGE_TAG_LONG &
+docker run --name $API -p 3100:8080 --rm $DOCKER_IMAGE_TAG_LONG &
 sleep 20
-HOST=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $DOCKER_IMAGE)
+HOST=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $API)
 STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://$HOST:8080/v1)
-docker stop $DOCKER_IMAGE
+docker stop $API
 
 if [ $STATUS_CODE = 200 ]; then
     echo "Image runs OK"
