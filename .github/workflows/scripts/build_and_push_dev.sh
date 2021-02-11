@@ -13,11 +13,11 @@ DOCKER_IMAGE_TAG_LONG=$DOCKER_IMAGE:$DOCKER_TAG_LONG
 # Build image
 echo Building pelias-api
 docker build --tag="$DOCKER_IMAGE_TAG_LONG" .
-docker run --name $API -p 3100:8080 --rm $DOCKER_IMAGE_TAG_LONG &
+docker run --name $DOCKER_IMAGE -p 3100:8080 --rm $DOCKER_IMAGE_TAG_LONG &
 sleep 20
-HOST=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $API)
+HOST=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $DOCKER_IMAGE)
 STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://$HOST:8080/v1)
-docker stop $API
+docker stop $DOCKER_IMAGE
 
 if [ $STATUS_CODE = 200 ]; then
     echo "Image runs OK"
