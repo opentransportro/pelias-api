@@ -114,6 +114,16 @@ function compareResults(a, b) {
       return diff;
     }
   }
+  if (a.popularity || b.popularity) {
+    var apop = a.popularity || 10;
+    var bpop = b.popularity || 10;
+    if (apop !== bpop) {
+      return bpop - apop;
+    }
+  }
+  if (a.distance !== b.distance) {  // focus point defined
+    return a.distance - b.distance;
+  }
   if (a.address_parts && b.address_parts) {
     diff = compareProperty(a.address_parts.street, b.address_parts.street);
     if (diff) {
@@ -134,18 +144,8 @@ function compareResults(a, b) {
       return diff;
     }
   }
-  if (a.popularity || b.popularity) {
-    var apop = a.popularity || 10;
-    var bpop = b.popularity || 10;
-    if (apop !== bpop) {
-      return bpop - apop;
-    }
-  }
   if(a.layer !== b.layer) { // larger has higher priority
     return layers.indexOf(b.layer) - layers.indexOf(a.layer);
-  }
-  if (a.distance !== b.distance) {  // focus point defined
-    return a.distance - b.distance;
   }
   if(a.source !== b.source) {
     return sources.indexOf(b.source) - sources.indexOf(a.source);
