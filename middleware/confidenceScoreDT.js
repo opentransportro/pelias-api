@@ -107,13 +107,6 @@ function compareResults(a, b) {
   if (b.confidence !== a.confidence) {
     return b.confidence - a.confidence;
   }
-  var diff;
-  if (a.parent && b.parent) {
-    diff = compareProperty(a.parent.localadmin, b.parent.localadmin);
-    if (diff) {
-      return diff;
-    }
-  }
   if (a.popularity || b.popularity) {
     var apop = a.popularity || 10;
     var bpop = b.popularity || 10;
@@ -123,6 +116,13 @@ function compareResults(a, b) {
   }
   if (a.distance !== b.distance) {  // focus point defined
     return a.distance - b.distance;
+  }
+  var diff;
+  if (a.parent && b.parent) {
+    diff = compareProperty(a.parent.localadmin, b.parent.localadmin);
+    if (diff) {
+      return diff;
+    }
   }
   if (a.address_parts && b.address_parts) {
     diff = compareProperty(a.address_parts.street, b.address_parts.street);
