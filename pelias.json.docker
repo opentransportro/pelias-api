@@ -30,14 +30,16 @@
     "indexName": "pelias",
     "version": "1.0",
     "targets": {
-      "canonical_sources": ["whosonfirst", "openstreetmap", "openaddresses", "geonames", "nlsfi", "gtfs"],
+      "canonical_sources": ["openstreetmap", "openaddresses", "nlsfi", "gtfs", "citybikes"],
       "layers_by_source": {
-        "nlsfi": [ "venue", "stop", "station" ],
-        "gtfs": [ "stop", "station" ]
+        "nlsfi": ["venue", "stop", "station"],
+        "gtfs": ["stop", "station"],
+        "citybikes": ["bikestation"]
       },
       "source_aliases": {
         "gtfs": ["gtfs"],
-        "nlsfi": ["nlsfi"]
+        "nlsfi": ["nlsfi"],
+	"citybikes": ["bikes"]
       }
     },
     "textAnalyzer": "libpostal",
