@@ -30,14 +30,16 @@
     "indexName": "pelias",
     "version": "1.0",
     "targets": {
-      "canonical_sources": ["whosonfirst", "openstreetmap", "openaddresses", "geonames", "nlsfi", "gtfs"],
+      "canonical_sources": ["openstreetmap", "openaddresses", "nlsfi", "gtfs", "citybikes"],
       "layers_by_source": {
-        "nlsfi": [ "venue", "stop", "station" ],
-        "gtfs": [ "stop", "station" ]
+        "nlsfi": ["venue", "stop", "station"],
+        "gtfs": ["stop", "station"],
+        "citybikes": ["bikestation"]
       },
       "source_aliases": {
         "gtfs": ["gtfs"],
-        "nlsfi": ["nlsfi"]
+        "nlsfi": ["nlsfi"],
+        "citybikes": ["bikes"]
       }
     },
     "textAnalyzer": "libpostal",
@@ -102,7 +104,7 @@
         "street": 0.2
       },
       "confidenceAddressParts": {
-	"number": {"parent":"address_parts", "field":"number", "numeric": true, "weight": 0.5},
+        "number": {"parent":"address_parts", "field":"number", "numeric": true, "weight": 0.5},
         "street": {"parent":"address_parts", "field":"street", "numeric": false, "weight": 2},
         "postalcode": {"parent":"address_parts", "field":"zip", "numeric": false, "weight": 1}
       },

@@ -28,6 +28,8 @@ function sanitizeId(rawId, messages) {
   var source = parts[0];
   if(source.indexOf('gtfs') === 0) {
     source = 'gtfs';
+  } else if(source.indexOf('citybikes') === 0) {
+    source = 'citybikes';
   }
   var layer = parts[1];
   var id = parts.slice(2).join(ID_DELIM);
@@ -49,7 +51,7 @@ function sanitizeId(rawId, messages) {
   }
 
   return {
-    source: source === 'gtfs' ? parts[0] : type_mapping.source_mapping[source][0],
+    source: source === 'gtfs' || source === 'citybikes' ? parts[0] : type_mapping.source_mapping[source][0],
     layer: layer,
     id: id,
   };

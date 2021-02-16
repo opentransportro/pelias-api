@@ -28,6 +28,7 @@ var confidenceAddressParts = {
 // layers priority in result sorting
 var layers = [
   'neighbourhood',
+  'bikestation',
   'stop',
   'venue',
   'address',
@@ -347,7 +348,7 @@ function checkName(text, parsedText, hit) {
   // parsedText name should take precedence if available since it's the cleaner name property
   if (check.assigned(parsedText) && (check.assigned(parsedText.name) || check.assigned(parsedText.query))) {
     var name = parsedText.name || parsedText.query;
-    var isVenue = hit.layer === 'venue' || hit.layer === 'stop' || hit.layer === 'station';
+    var isVenue = hit.layer === 'venue' || hit.layer === 'stop' || hit.layer === 'station' || hit.layer === 'bikestation';
     var bestScore = checkLanguageNames(name, hit, false, isVenue);
 
     if (parsedText.regions && isVenue && bestScore > genitiveThreshold) {
