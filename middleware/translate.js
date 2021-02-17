@@ -39,15 +39,24 @@ function translateProp(lang, value, translations, name) {
     return null;
   }
   var n = name ? name.fi || name.default || '' : '';
+  if (Array.isArray(n)) {
+    n = n[0] || '';
+  }
   var newVal;
   if (n.indexOf(value) === 0) {
     var len = n.length;
     var len2 = value.length;
     if (len === len2) {
       newVal = name[lang];
+      if (Array.isArray(newVal)) {
+	newVal = newVal[0];
+      }
     } else if (len > len2) {
       var postfix = n.substr(len2);
       var name2 = name[lang];
+      if (Array.isArray(name2)) {
+	name2 = name2[0];
+      }
       if (name2) {
         var tailIndex = name2.indexOf(postfix);
         if (tailIndex > 0) {
