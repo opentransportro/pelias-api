@@ -82,9 +82,6 @@
     "tap-dot": "^2.0.0",
     "tape": "^4.5.1"
   },
-  "pre-commit": [
-    "lint"
-  ],
   "release": {
     "branch": "master",
     "success": []
