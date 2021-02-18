@@ -29,18 +29,62 @@ function translateName(place, lang) {
   }
 }
 
-function translateProperties(place, key, names) {
-  if( place[key] !== null ) {
-    var name;
+function translateProp(lang, value, translations, name) {
+  // property  to be translated is often related to the document name
+  // for which we have a good data structure: name.fi, name.sv etc.
+  // example: we can translate street='Fabianinkatu' to sv using names
+  // name.fi = Fabianinkatu 10, name.sv = Fabiansgatan 10
+
+  if (!value) {
+    return null;
+  }
+  var n = name ? name.fi || name.default || '' : '';
+  if (Array.isArray(n)) {
+    n = n[0] || '';
+  }
+  var newVal;
+  if (n.indexOf(value) === 0) {
+    var len = n.length;
+    var len2 = value.length;
+    if (len === len2) {
+      newVal = name[lang];
+      if (Array.isArray(newVal)) {
+	newVal = newVal[0];
+      }
+    } else if (len > len2) {
+      var postfix = n.substr(len2);
+      var name2 = name[lang];
+      if (Array.isArray(name2)) {
+	name2 = name2[0];
+      }
+      if (name2) {
+        var tailIndex = name2.indexOf(postfix);
+        if (tailIndex > 0) {
+          // remove matching postifix (e.g. street number) to get the translation
+          newVal = name2.substr(0, tailIndex);
+        }
+      }
+    }
+    if (newVal) {
+      logger.debug('Translated ' + value + ' to ' + newVal);
+    }
+  }
+  // fallback to static dictionary
+  return newVal || translations[value];
+}
+
+function translateProperties(lang, place, key, translations, name) {
+  if(place[key]) {
+    var newName;
     if (place[key] instanceof Array) {
-      name = place[key][0];
-      if (name && names[name]) {
-        place[key][0] = names[name]; // do the translation
+      newName = translateProp(lang, place[key][0], translations, name);
+      if (newName) {
+        place[key][0] = newName;
       }
     } else {
-      name = place[key];
-      if (name && names[name]) {
-        place[key] = names[name];
+      newName = translateProp(lang, place[key], translations, name);
+      if (newName) {
+        place[key] = newName;
       }
     }
   }
@@ -53,20 +97,20 @@ function translate(req, res, next) {
     return next();
   }
 
-  var lang, matched;
+  var lang;
   if (req.clean) {
     lang = req.clean.lang;
   }
 
   if( lang && translations[lang] ) {
-    _.forEach(translations[lang], function(names, key) {
+    _.forEach(translations[lang], function(dict, key) {
       _.forEach(res.data, function(place) {
-        translateProperties(place, key, names);
+        translateProperties(lang, place, key, dict, place.name);
         if(place.parent) {
-          translateProperties(place.parent, key, names);
+          translateProperties(lang, place.parent, key, dict, place.name);
         }
         if(place.address_parts) {
-          translateProperties(place.address_parts, key, names);
+          translateProperties(lang, place.address_parts, key, dict, place.name);
         }
       });
     });

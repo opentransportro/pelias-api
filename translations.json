@@ -5321,7 +5321,8 @@
       "venue":"plats",
       "stop":"hållplats",
       "station":"station",
-      "street":"gata"
+      "street":"gata",
+      "bikestation":"Stadscykelstation"
     },
     "__category": {
       "food": "mat",
@@ -5444,7 +5445,8 @@
       "venue":"paikka",
       "stop":"pysäkki",
       "station":"asema",
-      "street":"katu"
+      "street":"katu",
+      "bikestation":"Kaupunkipyöräasema"
     },
     "__category": {
       "food": "ravinto",
