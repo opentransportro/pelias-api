@@ -5325,6 +5325,7 @@
       "bikestation":"Stadscykelstation"
     },
     "__category": {
+      "waterway": "vattnen",
       "food": "mat",
       "retail": "handeln",
       "health": "hälsa",
@@ -5449,6 +5450,7 @@
       "bikestation":"Kaupunkipyöräasema"
     },
     "__category": {
+      "waterway": "vesistö",
       "food": "ravinto",
       "retail": "kauppa",
       "health": "terveys",
