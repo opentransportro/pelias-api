@@ -19,10 +19,10 @@ sleep 20
 
 HOST=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $API)
 
-STAT1=$(curl -s -o /dev/null -w "%{http_code}" "http://$HOST:8080/v1/search?text=helsinki")
-STAT2=$(curl -s -o /dev/null -w "%{http_code}" "http://$HOST:8080/v1/reverse?point.lat=60.17&point.lon=24.95")
-STAT3=$(curl -s -o /dev/null -w "%{http_code}" "http://$HOST:8080/v1/place?ids=openstreetmap:venue:node:2280742211")
-STAT4=$(curl -s -o /dev/null -w "%{http_code}" "http://$HOST:8080/v1/autocomplete?text=eduskunt")
+STAT1=$(curl -s -o /dev/null -w "%{http_code}" http://$HOST:8080/v1/search?text=helsinki)
+STAT2=$(curl -s -o /dev/null -w "%{http_code}" http://$HOST:8080/v1/reverse?point.lat=60.17&point.lon=24.95)
+STAT3=$(curl -s -o /dev/null -w "%{http_code}" http://$HOST:8080/v1/place?ids=openstreetmap:venue:node:2280742211)
+STAT4=$(curl -s -o /dev/null -w "%{http_code}" http://$HOST:8080/v1/autocomplete?text=eduskunt)
 
 docker stop $API
 
