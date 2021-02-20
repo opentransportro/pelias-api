@@ -16,11 +16,17 @@ echo Building pelias-api
 docker build --tag="$DOCKER_IMAGE_TAG_LONG" .
 docker run --name $API -p 3100:8080 --rm $DOCKER_IMAGE_TAG_LONG &
 sleep 20
+
 HOST=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $API)
-STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://$HOST:8080/v1)
+
+STAT1=$(curl -s -o /dev/null -w "%{http_code}" http://$HOST:8080/v1/search?text=helsinki)
+STAT2=$(curl -s -o /dev/null -w "%{http_code}" http://$HOST:8080/v1/reverse?point.lat=60.17&point.lon=24.95)
+STAT3=$(curl -s -o /dev/null -w "%{http_code}" http://$HOST:8080/v1/place?ids=openstreetmap:venue:node:2280742211)
+STAT4=$(curl -s -o /dev/null -w "%{http_code}" http://$HOST:8080/v1/autocomplete?text=eduskunt)
+
 docker stop $API
 
-if [ $STATUS_CODE = 200 ]; then
+if [ $STAT1 == 200 -a $STAT2 == 200 -a $STAT3 == 200 -a $STAT4 = 200 ]; then
     echo "Image runs OK"
 else
     echo "Could not launch pelias api image"
