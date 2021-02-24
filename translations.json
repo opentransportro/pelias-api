@@ -5432,9 +5432,11 @@
       "Lapland": "Lappi",
       "Åland": "Ahvenanmaa"
     },
-    "country": {
-      "Finland": "Suomi"
-    },
+    "country": { "Finland": "Suomi" },
+    "localadmin": {},
+    "region": {},
+    "neighbourhood": {},
+    "street": {},
     "__layer": {
       "country":"maa",
       "dependency":"itsehallinto",

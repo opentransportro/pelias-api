@@ -1,4 +1,3 @@
-
 var check = require('check-types');
 var _ = require('lodash');
 var logger = require('pelias-logger').get('api:middleware:translate');
@@ -38,35 +37,57 @@ function translateProp(lang, value, translations, name) {
   if (!value) {
     return null;
   }
-  var n = name ? name.fi || name.default || '' : '';
-  if (Array.isArray(n)) {
-    n = n[0] || '';
+  if (!name) {
+    return translations[value];
+  }
+  var names = [];
+  var namedef, namefi, namesv;
+
+  if (name.default) {
+    namedef = Array.isArray(name.default) ? name.default[0] : name.default;
+    names.push(namedef);
+  }
+  if (name.fi) {
+    namefi = Array.isArray(name.fi) ? name.fi[0] : name.fi;
+    if(namefi !== namedef) {
+      names.push(namefi);
+    }
+  }
+  if (name.sv ) {
+    namesv = Array.isArray(name.sv) ? name.sv[0] : name.sv;
+    if(namesv !== namedef && namesv !== namefi) {
+      names.push(namesv);
+    }
   }
   var newVal;
-  if (n.indexOf(value) === 0) {
-    var len = n.length;
-    var len2 = value.length;
-    if (len === len2) {
-      newVal = name[lang];
-      if (Array.isArray(newVal)) {
-	newVal = newVal[0];
+  for (var i=0; i<names.length; i++) {
+    var n = names[i];
+    if (n.indexOf(value) === 0) {
+      var len = n.length;
+      var len2 = value.length;
+      if (len === len2) {
+	newVal = name[lang];
+	if (Array.isArray(newVal)) {
+	  newVal = newVal[0];
+	}
+      } else if (len > len2) {
+	var postfix = n.substr(len2);
+	var name2 = name[lang];
+	if (Array.isArray(name2)) {
+	  name2 = name2[0];
+	}
+	if (name2) {
+          var tailIndex = name2.indexOf(postfix);
+          if (tailIndex > 0) {
+            // remove matching postifix (e.g. street number) to get the translation
+            newVal = name2.substr(0, tailIndex);
+          }
+	}
       }
-    } else if (len > len2) {
-      var postfix = n.substr(len2);
-      var name2 = name[lang];
-      if (Array.isArray(name2)) {
-	name2 = name2[0];
+      if (newVal) {
+        logger.info('Translated ' + value + ' to ' + newVal);
+        break;
       }
-      if (name2) {
-        var tailIndex = name2.indexOf(postfix);
-        if (tailIndex > 0) {
-          // remove matching postifix (e.g. street number) to get the translation
-          newVal = name2.substr(0, tailIndex);
-        }
-      }
-    }
-    if (newVal) {
-      logger.debug('Translated ' + value + ' to ' + newVal);
     }
   }
   // fallback to static dictionary
